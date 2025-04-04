@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artificial Intelligence Prediction of Systemic Lupus Erythematosus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+       .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        h1 {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+       .risk-level {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px 30px;
+            border-radius: 25px;
+            display: inline-block;
+        }
+
+       .low-risk {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+       .high-risk {
+            background-color: #f44336;
+            color: white;
+        }
+
+       .confidence-level {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+       .advice-section {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+       .advice-section h2 {
+            margin-bottom: 10px;
+        }
+
+       .advice-section p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+
+       .image-section {
+            margin-bottom: 30px;
+        }
+
+       .image-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+       .explanation-section {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+       .explanation-section h2 {
+            margin-bottom: 10px;
+        }
+
+       .explanation-section p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+
+       .footer {
+            color: #777;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Artificial Intelligence Prediction of Systemic Lupus Erythematosus</h1>
+        <div class="result-section">
+            <div class="risk-level" id="risk-level"></div>
+            <div class="confidence-level">
+                Prediction Confidence: <span id="confidence"></span>
+            </div>
+        </div>
+        <div class="advice-section">
+            <h2>Health Advice</h2>
+            <p id="advice"></p>
+        </div>
+        <div class="image-section">
+            <img src="{{ url_for('static', filename='sle_prosess.png') }}" alt="Prediction process of systemic lupus erythematosus">
+        </div>
+        <div class="footer">
+            This prediction is for reference only. If you have any doubts about your health status, please consult a professional medical staff in a timely manner.
+        </div>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const disease_risk = urlParams.get('disease_risk');
+        const confidence = urlParams.get('confidence');
+
+        const riskLevelElement = document.getElementById('risk-level');
+        const adviceElement = document.getElementById('advice');
+        const confidenceElement = document.getElementById('confidence');
+
+        if (disease_risk === '1') {
+            riskLevelElement.textContent = 'High Risk';
+            riskLevelElement.classList.add('high-risk');
+            adviceElement.innerHTML = `
+                <p><strong>Important Notice:</strong> Your prediction result indicates a high risk of systemic lupus erythematosus. Please pay close attention to the following advice:</p>
+                <ul>
+                    <li>Make an appointment with a rheumatology specialist for a comprehensive examination as soon as possible.</li>
+                    <li>Avoid prolonged exposure to sunlight. Use sunscreen and protective clothing when outdoors.</li>
+                    <li>Maintain a regular schedule and ensure adequate sleep (7 - 8 hours per day is recommended).</li>
+                    <li>Follow a balanced diet and reduce the intake of high - salt, high - sugar, and high - fat foods.</li>
+                    <li>Regularly monitor your blood routine, urine routine, and autoantibody indicators.</li>
+                </ul>
+            `;
+        } else {
+            riskLevelElement.textContent = 'Low Risk';
+            riskLevelElement.classList.add('low-risk');
+            adviceElement.innerHTML = `
+                <p><strong>Health Advice:</strong> Your prediction result shows a low risk of systemic lupus erythematosus. Please continue to maintain a healthy lifestyle:</p>
+                <ul>
+                    <li>Engage in moderate physical exercise regularly (at least 150 minutes of moderate - intensity exercise per week).</li>
+                    <li>Undergo a comprehensive physical examination annually, including autoantibody screening.</li>
+                    <li>Pay attention to mental health and learn stress management techniques.</li>
+                    <li>Avoid contact with known triggers (such as certain medications and chemicals).</li>
+                    <li>Maintain good oral hygiene and have regular dental check - ups.</li>
+                </ul>
+            `;
+        }
+
+        confidenceElement.textContent = confidence ?
+            `${(parseFloat(confidence) * 100).toFixed(1)}%` :
+            'Unknown';
+
+        if (isNaN(confidence) || confidence < 0 || confidence > 1) {
+            confidenceElement.textContent = 'Unknown';
+        }
+    </script>
+</body>
+
+</html>

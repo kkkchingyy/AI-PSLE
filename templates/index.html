@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI系统性红斑狼疮预测系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            text-align: center;
+            background: #555;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .sub-header {
+            text-align: center;
+            background: #ccc;
+            padding: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .content {
+            display: flex;
+            gap: 20px;
+        }
+        .left-section {
+            flex: 1;
+            text-align: center;
+        }
+        .left-section img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .description {
+            font-size: 1rem;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f8f8;
+            border-radius: 5px;
+            text-align: justify;
+        }
+        .right-section {
+            flex: 2;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .form-group {
+            width: 30%;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>Artificial Intelligence Prediction of Systemic Lupus Erythematosus</header>
+        <div class="sub-header">Please enter the corresponding parameters below:</div>
+        <div class="content">
+            <div class="left-section">
+                <img src="{{ url_for('static', filename='img.png') }}" alt="Medical AI">
+                <p class="description">
+                    We developed an intelligent systemic lupus erythematosus prediction system (AI-PSLE) based on
+                    clinical laboratory indicators and meteorological data using a complete machine learning pipeline,
+                    aiming to optimize management strategies and targeted interventions in population disease screening.
+                </p>
+            </div>
+            <form id="medical-form" class="right-section">
+                <!-- 性别 -->
+                <div class="form-group">
+                    <label for="gender">Gender (Man:1;Women:2)</label>
+                    <input type="text" id="gender" name="Gender" placeholder="1/2">
+                </div>
+
+                <!-- 白细胞 WBC -->
+                <div class="form-group">
+                    <label for="WBC">WBC (10⁹/L)</label>
+                    <input type="text" id="WBC" name="WBC">
+                </div>
+
+                <!-- 中性粒细胞 NEU -->
+                <div class="form-group">
+                    <label for="NEU">NEU (10⁹/L)</label>
+                    <input type="text" id="NEU" name="NEU">
+                </div>
+
+                <!-- 淋巴细胞 LYM -->
+                <div class="form-group">
+                    <label for="LYM">LYM (10⁹/L)</label>
+                    <input type="text" id="LYM" name="LYM">
+                </div>
+
+                <!-- 单核细胞 MONO -->
+                <div class="form-group">
+                    <label for="MONO">MONO (10⁹/L)</label>
+                    <input type="text" id="MONO" name="MONO">
+                </div>
+
+                <!-- 嗜酸性粒细胞 EOS -->
+                <div class="form-group">
+                    <label for="EOS">EOS (10⁹/L)</label>
+                    <input type="text" id="EOS" name="EOS">
+                </div>
+
+                <!-- 嗜碱性粒细胞 BASO -->
+                <div class="form-group">
+                    <label for="BASO">BASO (10⁹/L)</label>
+                    <input type="text" id="BASO" name="BASO">
+                </div>
+
+                <!-- 红细胞 RBC -->
+                <div class="form-group">
+                    <label for="RBC">RBC (10⁹/L)</label>
+                    <input type="text" id="RBC" name="RBC">
+                </div>
+
+                <!-- 血红蛋白 HGB -->
+                <div class="form-group">
+                    <label for="HGB">HGB (g/L)</label>
+                    <input type="text" id="HGB" name="HGB">
+                </div>
+
+                <!-- 红细胞压积 HCT -->
+                <div class="form-group">
+                    <label for="HCT">HCT (%)</label>
+                    <input type="text" id="HCT" name="HCT">
+                </div>
+
+                <!-- 红细胞分布宽度标准差 RDW-SD -->
+                <div class="form-group">
+                    <label for="RDW.SD">RDW-SD (fl)</label>
+                    <input type="text" id="RDW.SD" name="RDW.SD">
+                </div>
+
+                <!-- 红细胞分布宽度变异系数 RDW-CV -->
+                <div class="form-group">
+                    <label for="RDW.CV">RDW-CV (%)</label>
+                    <input type="text" id="RDW.CV" name="RDW.CV">
+                </div>
+
+                <!-- 血小板 PLT -->
+                <div class="form-group">
+                    <label for="PLT">PLT (10⁹/L)</label>
+                    <input type="text" id="PLT" name="PLT">
+                </div>
+
+                <!-- 降钙素原 PCT -->
+                <div class="form-group">
+                    <label for="PCT">PCT (%)</label>
+                    <input type="text" id="PCT" name="PCT">
+                </div>
+
+                <!-- 血小板分布宽度 PDW -->
+                <div class="form-group">
+                    <label for="PDW">PDW (fl)</label>
+                    <input type="text" id="PDW" name="PDW">
+                </div>
+
+                <!-- 总蛋白 TP -->
+                <div class="form-group">
+                    <label for="TP">TP (g/L)</label>
+                    <input type="text" id="TP" name="TP">
+                </div>
+
+                <!-- 白蛋白 ALB -->
+                <div class="form-group">
+                    <label for="ALB">ALB (g/L)</label>
+                    <input type="text" id="ALB" name="ALB">
+                </div>
+
+                <!-- 球蛋白 GLO -->
+                <div class="form-group">
+                    <label for="GLO">GLO (g/L)</label>
+                    <input type="text" id="GLO" name="GLO">
+                </div>
+
+                <!-- 总胆红素 TBIL -->
+                <div class="form-group">
+                    <label for="TBIL">TBIL (umol/L)</label>
+                    <input type="text" id="TBIL" name="TBIL">
+                </div>
+
+                <!-- 间接胆红素 IBIL -->
+                <div class="form-group">
+                    <label for="IBIL">IBIL (umol/L)</label>
+                    <input type="text" id="IBIL" name="IBIL">
+                </div>
+
+                <!-- 尿素氮 Urea -->
+                <div class="form-group">
+                    <label for="Urea">Urea (mmol/L)</label>
+                    <input type="text" id="Urea" name="Urea">
+                </div>
+
+                <!-- 氯 Cl -->
+                <div class="form-group">
+                    <label for="Cl">Cl (mmol/L)</label>
+                    <input type="text" id="Cl" name="Cl">
+                </div>
+
+                <!-- C反应蛋白 CRP -->
+                <div class="form-group">
+                    <label for="CRP">CRP (mg/L)</label>
+                    <input type="text" id="CRP" name="CRP">
+                </div>
+
+                <!-- 尿比重 SG -->
+                <div class="form-group">
+                    <label for="SG">SG</label>
+                    <input type="text" id="SG" name="SG">
+                </div>
+
+                <!-- 尿上皮细胞 EC -->
+                <div class="form-group">
+                    <label for="EC">EC (/μl)</label>
+                    <input type="text" id="EC" name="EC">
+                </div>
+
+                <!-- 尿沉渣细菌 BACT -->
+                <div class="form-group">
+                    <label for="BACT">BACT (/μl)</label>
+                    <input type="text" id="BACT" name="BACT">
+                </div>
+
+                <!-- 尿小圆上皮细胞 SRC -->
+                <div class="form-group">
+                    <label for="SRC">SRC (/μl)</label>
+                    <input type="text" id="SRC" name="SRC">
+                </div>
+
+                <!-- 游离三碘甲状腺原氨酸 FT3 -->
+                <div class="form-group">
+                    <label for="FT3">FT3 (pmol/L)</label>
+                    <input type="text" id="FT3" name="FT3">
+                </div>
+
+                <!-- 促甲状腺激素 TSH -->
+                <div class="form-group">
+                    <label for="TSH">TSH (μIU/mL)</label>
+                    <input type="text" id="TSH" name="TSH">
+                </div>
+
+                <!-- 臭氧 O3 -->
+                <div class="form-group">
+                    <label for="O3">O3 (ug/m³)</label>
+                    <input type="text" id="O3" name="O3">
+                </div>
+
+                <!-- PM2.5 -->
+                <div class="form-group">
+                    <label for="PM2.5">PM2.5 (ug/m³)</label>
+                    <input type="text" id="PM2.5" name="PM2.5">
+                </div>
+
+                <!-- PM10 -->
+                <div class="form-group">
+                    <label for="PM10">PM10 (ug/m³)</label>
+                    <input type="text" id="PM10" name="PM10">
+                </div>
+
+                <!-- 降水 Precipitation -->
+                <div class="form-group">
+                    <label for="Precipitation">Precipitation (mm)</label>
+                    <input type="text" id="Precipitation" name="Precipitation">
+                </div>
+
+                <!-- 日照 Sunshine -->
+                <div class="form-group">
+                    <label for="Sunshine">Sunshine (h)</label>
+                    <input type="text" id="Sunshine" name="Sunshine">
+                </div>
+
+                <!-- 平均气温 Average temperatures -->
+                <div class="form-group">
+                    <label for="Average temperatures">Average temperatures (℃)</label>
+                    <input type="text" id="Average temperatures" name="Average temperatures">
+                </div>
+
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('medical-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = {};
+            const inputs = document.querySelectorAll('#medical-form input');
+            for (let input of inputs) {
+                const value = input.value;
+                if (input.name === 'Gender') {
+                    if (value!== '1' && value!== '2') {
+                        alert(`Invalid input for ${input.name}: ${value}. Please enter either 1 or 2.`);
+                        return;
+                    }
+                    formData[input.name] = parseInt(value);
+                } else {
+                    if (!/^-?\d+(\.\d+)?$/.test(value)) {
+                        alert(`Invalid input for ${input.name}: ${value}. Please enter a valid decimal number.`);
+                        return;
+                    }
+                    formData[input.name] = parseFloat(value);
+                }
+            }
+            console.log('Form data:', formData);
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(formData),
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Server error:', errorData);
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.error}`);
+                }
+                const result = await response.json();
+                window.location.href = `/result?disease_risk=${result.disease_risk}&confidence=${result.confidence}`;
+            } catch (error) {
+                console.error('Fetch error:', error);
+                alert(`Prediction failed: ${error.message}`);
+            }
+        });
+    </script>
+</body>
+</html>
